@@ -1,9 +1,18 @@
-import React, {useState} from 'react';
-const List = () => {
-    const [todos, setTodos] = useState([])
-    return (
-        <div><h1>HEPEEEEEEEEEEK</h1></div>
-    )
-}
+import React from "react";
+
+type TodoListProps = {
+  todos: any[];
+};
+const List = ({ todos }: TodoListProps) => {
+  return (
+    <ul className="todoList">
+      {todos.map((item, i) => (
+        <li key={i}>
+          <span data-testid={`todo${i}`}>{item.text}</span>
+        </li>
+      ))}
+    </ul>
+  );
+};
 
 export default List;
