@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import "./App.css";
 import List from "./components/List";
 import "./styles.scss";
+import { Todo } from "./types";
 
 function App() {
-  interface Todo {
-    text: string;
-    done: boolean;
-  }
   const [todos, setTodos] = useState<Todo[]>([
     { text: "Buy milk", done: true },
     { text: "Buy bread", done: false },
   ]);
 
   const [todo, setTodo] = useState("");
-
+  const handleChange = (editedTodo: Todo, id: number) => {
+    let allTodos = [...todos];
+    allTodos[id] = editedTodo;
+    setTodos((todos) => allTodos);
+  };
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (todo.length > 0) {
@@ -40,7 +41,7 @@ function App() {
         <button onClick={handleSubmit}>Add Todo</button>
       </form>
 
-      <List todos={todos}></List>
+      <List handleChange={handleChange} todos={todos}></List>
     </div>
   );
 }
