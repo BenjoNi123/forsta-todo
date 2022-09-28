@@ -11,11 +11,19 @@ function App() {
   ]);
 
   const [todo, setTodo] = useState("");
+
   const handleChange = (editedTodo: Todo, id: number) => {
     let allTodos = [...todos];
     allTodos[id] = editedTodo;
-    setTodos((todos) => allTodos);
+    setTodos(allTodos);
   };
+  
+  const handleDelete = (i: number) => {
+    let allTodos = [...todos];
+    allTodos.splice(i, 1);
+    setTodos(allTodos)
+  } 
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (todo.length > 0) {
@@ -25,6 +33,7 @@ function App() {
       };
 
       setTodos((todos) => [changeTodo, ...todos]);
+      setTodo("");
     } else alert("Please enter ToDo to save it");
   };
 
@@ -41,7 +50,7 @@ function App() {
         <button onClick={handleSubmit}>Add Todo</button>
       </form>
 
-      <List handleChange={handleChange} todos={todos}></List>
+      <List handleDelete={handleDelete} handleChange={handleChange} todos={todos}></List>
     </div>
   );
 }
