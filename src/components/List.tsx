@@ -3,34 +3,34 @@ import { Todo } from "../types";
 
 type TodoListProps = {
   todos: Todo[];
-  handleChange: (editedTodo: Todo, id: number) => void;
+  handleChange: (editedTodo: Todo) => void;
   handleDelete: (i: number) => void;
 };
 const List = ({ todos, handleChange, handleDelete }: TodoListProps) => {
-  const handleToggle = (item: Todo, i: number) => {
+  const handleToggle = (item: Todo) => {
     item.done = !item.done;
-    handleChange(item, i)
+    handleChange(item)
   }
-  const deleteItem = (i: number) => {
-    handleDelete(i)
+  const deleteItem = (item: Todo) => {
+    handleDelete(item.id)
   }
   return (
     <ul className="todoList">
-      {todos.map((item, i) => (
-        <li key={i}>
-          <span data-testid={`todo${i}`}>{item.text}</span>
+      {todos.map((item) => (
+        <li key={item.id}>
+          <span /* data-testid={`todo${i}`} */>{item.text}</span>
           <label htmlFor="Done">
             Done
             <input
-              value={item.done.toString()}
+              /* value={item.done.toString()} */
               type="checkbox"
               name="Done"
-              defaultChecked={item.done}
+              defaultChecked= {false}
               id=""
-              onChange={() => handleToggle(item, i)}
+              onChange={() => handleToggle(item)}
             />
           </label>
-          <button onClick={deleteItem(i)}>Delete</button>
+          <button onClick={() => deleteItem(item)}>Delete</button>
         </li>
       ))}
     </ul>

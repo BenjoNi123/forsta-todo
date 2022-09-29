@@ -6,28 +6,33 @@ import { Todo } from "./types";
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([
-    { text: "Buy milk", done: true },
-    { text: "Buy bread", done: false },
+    /* { text: "Buy milk", done: true },
+    { text: "Buy bread", done: false }, */
   ]);
 
   const [todo, setTodo] = useState("");
 
-  const handleChange = (editedTodo: Todo, id: number) => {
+  const handleChange = (editedTodo: Todo) => {
     let allTodos = [...todos];
-    allTodos[id] = editedTodo;
+     
+    allTodos[allTodos.findIndex(todo => todo.id === editedTodo.id)] = editedTodo;
     setTodos(allTodos);
   };
   
   const handleDelete = (i: number) => {
     let allTodos = [...todos];
-    allTodos.splice(i, 1);
-    setTodos(allTodos)
+    allTodos.splice(allTodos.map(item => item.id).indexOf(i), 1);
+    let rev = allTodos.reverse();
+    rev.map((item, index) => item.id = index+1);
+    rev.reverse()
+    setTodos(rev)
   } 
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (todo.length > 0) {
       const changeTodo = {
+        id: todos.length + 1,
         text: todo,
         done: false,
       };
