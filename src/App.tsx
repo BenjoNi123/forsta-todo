@@ -4,41 +4,45 @@ import List from "./components/List";
 import "./styles.scss";
 import { Todo } from "./types";
 
+let maxId = 2;
+
 function App() {
   const [todos, setTodos] = useState<Todo[]>([
-    /* { text: "Buy milk", done: true },
-    { text: "Buy bread", done: false }, */
+    { id: 0, text: "Buy milk", done: true },
+    { id: 1, text: "Buy bread", done: false },
   ]);
 
   const [todo, setTodo] = useState("");
 
   const handleChange = (editedTodo: Todo) => {
     let allTodos = [...todos];
-     
     allTodos[allTodos.findIndex(todo => todo.id === editedTodo.id)] = editedTodo;
     setTodos(allTodos);
   };
   
-  const handleDelete = (i: number) => {
+  const handleDelete = (id: number) => {
     let allTodos = [...todos];
-    allTodos.splice(allTodos.map(item => item.id).indexOf(i), 1);
-    let rev = allTodos.reverse();
-    rev.map((item, index) => item.id = index+1);
-    rev.reverse()
-    setTodos(rev)
+
+    //Another way of deleting item from array.
+    /* let final = allTodos.filter((item) => item.id !== i); */
+
+
+    allTodos.splice(allTodos.findIndex((item)=> item.id === id), 1)
+    setTodos(allTodos)
   } 
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (todo.length > 0) {
       const changeTodo = {
-        id: todos.length + 1,
+        id: maxId,
         text: todo,
         done: false,
       };
 
       setTodos((todos) => [changeTodo, ...todos]);
       setTodo("");
+      maxId++;
     } else alert("Please enter ToDo to save it");
   };
 
@@ -47,12 +51,13 @@ function App() {
       <div className="forsta-logo" />
       <form onSubmit={handleSubmit}>
         <input
+        data-testid="inputTodo"
           onChange={(e) => setTodo(e.target.value)}
           value={todo}
           type="text"
           placeholder="Enter your Todo"
         />
-        <button onClick={handleSubmit}>Add Todo</button>
+        <button type="submit">Add Todo</button>
       </form>
 
       <List handleDelete={handleDelete} handleChange={handleChange} todos={todos}></List>
