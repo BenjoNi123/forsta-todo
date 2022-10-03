@@ -11,18 +11,36 @@ body {
     margin: 0;
 }
 
+.app-container {
+    width: 70vw;
+    margin: auto;
+}
+.form-container {
+    display: flex;
+}
+
+.todo-input {
+    width: 75%;
+    border-radius: 4px;
+}
+
+.todo-add-button {
+    width: 25%;
+    border-radius: 4px;
+}
+
 .todoListApp .addTodo input {
     padding: 5px;
     font-size: 16px;
     border: 1px solid #d9d9d9;
+    border-radius: 4px;
     width: 165px;
 }
 
 .todoListApp button {
     padding: 5px;
     font-size: 16px;
-    margin: 5px;
-    margin-right: 5px;
+    margin-left: 10px;
     background-color: #00a8f0;
     color: #FFF;
     border: none;
@@ -30,21 +48,35 @@ body {
 
 .todoListApp button:hover {
     cursor: pointer;
+    opacity: 0.8;
 }
 
 .todoListApp .todoList {
     list-style: none;
     padding-left: 0;
-    width: 250px;
 }
 
-.todoListApp .todoList li {
+.todo-item {
     color: #333;
     background-color: rgba(255, 255, 255, .5);
     padding: 10px;
     margin-bottom: 10px;
-    border-radius: 2px;
+    border-radius: 4px;
     list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.edit-group  {
+    display: flex;
+    align-items: center;
+    .done-check {
+        display: flex;
+        align-items: center;
+    }
+}
+.todoListApp .todoList li {
+    
 }
 
 ul.todoList {

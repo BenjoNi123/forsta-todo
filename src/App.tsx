@@ -49,18 +49,20 @@ function App() {
   return (
     <div className="todoListApp">
       <div className="forsta-logo" />
-      <form onSubmit={handleSubmit}>
-        <input
+      <div className="app-container">
+      <form className="form-container" onSubmit={handleSubmit}>
+        <input className="todo-input"
         data-testid="inputTodo"
           onChange={(e) => setTodo(e.target.value)}
           value={todo}
           type="text"
           placeholder="Enter your Todo"
         />
-        <button type="submit">Add Todo</button>
+        <button className="todo-add-button" type="submit">Add Todo</button>
       </form>
 
       <List handleDelete={handleDelete} handleChange={handleChange} todos={todos}></List>
+      </div>
     </div>
   );
 }
